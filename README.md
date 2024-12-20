@@ -25,6 +25,104 @@ It reduces the memory footprint by avoiding over-allocation of DOM nodes.
 ## Task 3:
 For task 3rd we have Style the `<List />` component to display as a grid . it is responsive grid .
 
+## Task 4:
+Assignment: Introduce redux-toolkit and store the list of pokémon in the redux store.
+Answer: As we have mention above we had already use redux toolkit for fetching data 
+to store in redux store we can use below three method
 
+1) while requesting data at that time we use below code in this we are using dispacth function which will call when we received data
+```javascript
+getPokimonList: builder.query<Promise<IGetVo[]>, void>({
+      query: () => '/limits=151',
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        console.log(id, 'current id');
+        // `onStart` side-effect
+        // dispatch(messageCreated('Fetching post...'));
+        try {
+          const { data } = await queryFulfilled;
+          console.log(data, '=======');
+          dispatch(getSlice.actions.setPokimonData(data));
+          // `onSuccess` side-effect
+          // dispatch(messageCreated('Data received!'));
+        } catch (err) {
+          // `onError` side-effect
+          // dispatch(messageCreated('Error fetching Data!'));
+        }
+      },
+      transformResponse: (response: { result: Promise<IGetVo[]> }) => {
+        return response.result;
+      },
+```
+2) second method is when we recived success data via useFetchPokimonDataQuery then we can use dispatch to savePokimon data in store 
+```javascript
+  const { data, isLoading, error } = useFetchPokimonDataQuery();
 
+  useEffect(() => {
+    if (data?.hasOwnProperty('results')) {
+      console.log("data",data);
+      dispatch(savePokimonData(data));
+    }
+  }, [data])
+
+```
+3) Third but better approach is creating extraReducer
+in this way we there will be no need  of using onQueryStarted for this, we can  just add an extraReducer with 
+builder.addMatcher(api.endpoints.getPokimonList.matchFulfilled, (state, action) => {}) to  slice and 
+it will directly use the RTKQ-internal action without firing another one (which might save our some computing power).
+
+Question 4: What makes the createSlice in redux-toolkit difference then A Reducer in redux?
+Answer : 
+In Redux, a `reducer` is a pure function that takes the `current` `state` and an `action`, and returns a `new` `state`.
+```javascript
+const initialState = {
+  counter: 0
+};
+
+const exampleReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return { ...state, counter: state.counter + 1 };
+    case 'DECREMENT':
+      return { ...state, counter: state.counter - 1 };
+    default:
+      return state;
+  }
+};
+
+const rootReducer = combineReducers({
+  example: exampleReducer
+});
+
+export default rootReducer;
+
+whereas in Redux Toolkit's `createSlice` is a `highe-order function` that generates a `reducer` and an `action` creator for us, making it easier to `manage` our Redux state.
+`createSlice` automatically generates action types for us, so we don't need to define them manually also it ensures that our state is always immutable
+
+const initialState = {
+  counter: 0
+};
+
+const exampleSlice = createSlice({
+  name: 'example',
+  initialState,
+  reducers: {
+    increment: (state) => {
+      state.counter += 1;
+    },
+    decrement: (state) => {
+      state.counter -= 1;
+    }
+  }
+});
+
+export const { increment, decrement } = exampleSlice.actions;
+export default exampleSlice.reducer;
+```
+Question 5: Describe the benefits of immutable code.
+Answer: 
+Immutable code ensures that the state of an application is always `predictable` and `consistent`. 
+When the state is immutable, we can be certain that the application will behave as expected, even in complex scenarios.
+
+Immutable code can lead to better performance because it reduces the need for unnecessary re-renders. 
+When the state is immutable, React can efficiently determine which components need to be updated.
 

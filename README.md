@@ -13,5 +13,12 @@ Answer 2:
 1) At present the provided api is having limit , ideally there should be pagination also , which means we can fetch limited data based on interet speed, so that it will fetch immedialtely .
 2) We have to use more feature of Reduct toolikit query like Automatic caching , Query dependency which will help in error handling and other place like loading etc.
 
+## Task 2:
+For this task we are pasing list "results"  into the List component when we receied from the api as a response .
+
+Inside this List component we are have created new component i.ie `VirtualizedList`. Once we received all list name then based on screen size we are showing few name ,it works by only rendering part of a large data set (just enough to fill the viewport). This helps address some common performance bottlenecks:
+
+It reduces the amount of work (and time) required to render the initial view and to process updates.
+It reduces the memory footprint by avoiding over-allocation of DOM nodes.
 
 

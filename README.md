@@ -160,3 +160,91 @@ function MyComponent() {
 3)  `logger` middleware from Redux Toolkit to log dispatched actions or `redux-logger` with a custom log level to filter out certain types of actions.
 
 
+
+## Task 6:
+Question 7: explain the use of useEffect hook in React .
+Answer:
+ Just like life cycle method in class based component , it is use to `managing side effects` in functional component
+ it allows us verify the  data whenever data is updated 
+ ```javascript
+ useEffect(()=>{
+console.log("data",data);
+ }[data])
+ ```
+
+Question 8: What is A High Order Component?
+ A HOC is a function that takes a component  as an argument (App) and returns a new component with the enhanced functionality (LoggerApp).
+ but it wont mutate the component which is passed as argument (App);
+
+ ```javascript
+import React from 'react';
+import withLogger from './withLogger';
+ 
+const App = () => {
+  return <div>Hello World!</div>;
+};
+ 
+const LoggerApp = withLogger(App);
+ 
+export default LoggerApp;
+```
+
+Question 9: What use cases would a HOC be usefull?
+Answer:  
+1)example where we can use is Suppose we have an application with various routes, some of which require the user to be authenticated before accessing them.
+Instead of duplicating the authentication logic in each component or route, we can create an HOC called withAuth that checks if the user is authenticated and redirects them to the login page if not. 
+Then, we can wrap the specific components or routes that need authentication with this HOC, reducing duplication and enforcing consistent authentication behavior.
+2) we can create an HOC called withLogger that handles the logging functionality. By wrapping the relevant components with withLogger, you can achieve consistent logging across those components.
+
+Question 10: What does it indicate when a component is prefixed with use and with 
+Answer: 
+ 1) In React, when a component is prefixed with `use`, it indicates that it is a custom hook like useManageState , useGeoLocation
+ 2)  `with` prefix is used to denote a higher-order component (HOC). A HOC is a function that takes a component as an argument and returns a new component with additional props or behavior.
+ 
+
+Question 11: What is a Generic type in typescript?
+Answer: 
+In TypeScript, generic types are a way to create reusable functions and classes that can work with multiple data types. They allow you to define a type that can work with any type, rather than being limited to a specific type.
+ 
+The basic syntax for a generic type in TypeScript is as follows:
+```javascript
+function identity<T>(arg: T): T {  return arg;}
+```
+In this example, T is a type parameter that can be replaced with any type. The identity function takes an argument of type T and returns a value of type T
+
+ 
+Question 12: Whats the difference between a controlled and uncontrolled input in React?
+
+ In uncontrolled component The input's value is stored in the DOM, and React doesn't manage the input's state.
+```javascript
+function UncontrolledInput() {
+  return (
+    <input
+      type="text"
+      id="uncontrolled-input"
+      value={this.state.value} // This will not work
+    />
+  );
+}
+```
+
+Controlled inputs are the recommended way of handling form inputs in React. The input's value is stored in the component's state, and React manages the input's state.
+```javascript
+function ControlledInput() {
+  const [value, setValue] = useState('');
+
+  function handleChange(event) {
+    setValue(event.target.value);
+  }
+
+  return (
+    <input
+      type="text"
+      id="controlled-input"
+      value={value}
+      onChange={handleChange}
+    />
+  );
+}
+```
+In the above example, the input's value is stored in the value state variable, and the handleChange function updates the state when the input changes.

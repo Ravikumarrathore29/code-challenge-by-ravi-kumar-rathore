@@ -22,3 +22,9 @@ It reduces the amount of work (and time) required to render the initial view and
 It reduces the memory footprint by avoiding over-allocation of DOM nodes.
 
 
+## Task 3:
+For task 3rd we have Style the `<List />` component to display as a grid . it is responsive grid .
+
+
+
+

@@ -11,6 +11,7 @@ export interface IPokimonData {
     isError: boolean;
     currentData: IDataOrCurrentData;
     isFetching: boolean;
+    
   }
   export interface IDataOrCurrentData {
     count: number;

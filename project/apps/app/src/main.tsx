@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-      //This makes the store accessible to the App that is passing it as a prop
     <Provider store={store}>
         <App />
     </Provider>

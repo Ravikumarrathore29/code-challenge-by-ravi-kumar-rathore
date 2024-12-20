@@ -7,15 +7,27 @@ import { IPokimonData } from './pokimon.type';
 export const pokimonApi = createApi({
     reducerPath: "pokimonData",
     baseQuery: fetchBaseQuery({
-
         //Api endpoint
         baseUrl: `${API_URLS.GET_ALL_POKIMON_DATA.URL}`
     }),
+    tagTypes:['Pokemon'],
     endpoints: (builder) => ({
-
         //query function , Get 151 list of pokimon data task 1  
         fetchPokimonData: builder.query<IPokimonData, void>({
-            query: () => `${'?' + API_URLS.GET_ALL_POKIMON_DATA.LIMIT + '=' + API_URLS.GET_ALL_POKIMON_DATA.VALUE}`
+            query: () => `${'?' + API_URLS.GET_ALL_POKIMON_DATA.LIMIT + '=' + API_URLS.GET_ALL_POKIMON_DATA.VALUE}`,
+           
+            // async onQueryStarted(id, { dispatch, queryFulfilled }) {
+            //     // `onStart` side-effect
+            //    // dispatch(messageCreated('Fetching post...'))
+            //     try {
+            //       const { data } = await queryFulfilled
+            //       // `onSuccess` side-effect
+            //       dispatch(messageCreated('Post received!'))
+            //     } catch (err) {
+            //       // `onError` side-effect
+            //       dispatch(messageCreated('Error fetching post!'))
+            //     }
+            //   },
         })
 
 
@@ -25,5 +37,5 @@ export const pokimonApi = createApi({
 
 
 //use query hooks to execute the query
-export const { useFetchPokimonDataQuery } = pokimonApi
+export const { useFetchPokimonDataQuery  } = pokimonApi
 

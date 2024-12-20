@@ -126,3 +126,37 @@ When the state is immutable, we can be certain that the application will behave 
 Immutable code can lead to better performance because it reduces the need for unnecessary re-renders. 
 When the state is immutable, React can efficiently determine which components need to be updated.
 
+
+## Task 5:
+For this assignment we created a button (delete icon) for each pokemon on click of that we are calling function (`handleRemovePokemon`) where an Action will be dispatched   `pokemonRemoved` to remove the pokémon from the store.
+
+ Question 6: How can you verify the action has been dispatched?
+ Answer :  
+
+ below are the few method to verify the action has been dispatched 
+ 1) in Redux Toolkit, we can use the `useDispatch` hook from the `@reduxjs/toolkit` package .
+ but  it won't give us the dispatched `action` because `useDispatch` returns a `function` that returns the `dispatch function`, 
+but it doesn't return the dispatched action itself.
+
+2) another way is `useSelector` hook with a custom selector that checks if the action has been dispatched
+but it requires  to know the `type of action` that has been dispatched.
+
+```javascript
+import { useSelector } from 'react-redux';
+import { counterSlice } from './counterSlice';
+
+function MyComponent() {
+  const hasActionBeenDispatched = useSelector((state) =>
+    state.counter.actions.some((action) => action.type === counterSlice.actions.increment.type)
+  );
+
+  return (
+    <div>
+      <p>Has action been dispatched: {hasActionBeenDispatched ? 'Yes' : 'No'}</p>
+    </div>
+  );
+}
+```
+3)  `logger` middleware from Redux Toolkit to log dispatched actions or `redux-logger` with a custom log level to filter out certain types of actions.
+
+

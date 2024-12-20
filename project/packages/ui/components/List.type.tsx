@@ -14,6 +14,13 @@ export interface IPokimonData {
   isFetching: boolean;
 
 }
+
+
+export interface IList{
+data:any;
+handleRemovePokemon: (val: string) => void
+
+}
 export interface IDataOrCurrentData {
   results?: (IResultsEntity)[];
 }
@@ -33,4 +40,5 @@ export interface IVirtualListProps {
 
 export interface IResultListAsGrid{
   results: (IResultsEntity)[];
+  handleRemovePokemon: (val: string) => void; 
 }
